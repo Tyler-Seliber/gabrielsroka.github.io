@@ -291,6 +291,26 @@
                 event.preventDefault();
             };
         });
+
+
+        createDiv("Set Secondary Email", mainPopup, function () {
+            const emailPopup = createPopup("Set Email");
+            const emailForm = emailPopup[0].appendChild(document.createElement("form")); /* Cuz "<form>" didn't work. */
+            emailForm.innerHTML = "<input id=newEmail><br><button class='link-button'>Set</button>";
+            newEmail.focus(); /* Cuz "autofocus" didn't work. */
+            emailForm.onsubmit = function (event) {
+                const url = `/api/v1/users/${userId}`; /* TODO: `/api/v1/users/${userId}/lifecycle/expire_email?tempEmail=false` */
+                const data = {
+                    profile: {
+                        secondEmail: newEmail.value
+                    }
+                };
+                postJSON({ url, data })
+                    .then(() => emailPopup.html("Email set."))
+                    .fail(jqXHR => emailPopup.html(e(jqXHR.responseJSON.errorCauses[0].errorSummary)));
+                event.preventDefault();
+            };
+        });
     }
 
     function directoryGroups() {
