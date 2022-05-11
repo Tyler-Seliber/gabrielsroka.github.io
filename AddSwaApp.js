@@ -11,8 +11,8 @@ Usage:
 */
 
 (function () {
-    var popup = createPopup("Add App");
-    var form = $("<style>td {padding: 4px}</style><form class=appForm><table><tr><td>Label<td><input class=label style='width: 300px'>" + 
+    var popup = createPopup("Add SWA App");
+    var form = $("<form><table><tr><td>Label<td><input class=label style='width: 300px'>" + 
         "<tr><td>Login URL<td><input class=loginUrl value='https://LOGIN.oktapreview.com' style='width: 300px'></table>" + 
         "<button type=submit>Add</button></form>").appendTo(popup);
     form.submit(async (event) => {
@@ -35,17 +35,17 @@ Usage:
             }
         };
         popup.html("Adding app...");
-        // https://developer.okta.com/docs/api/resources/apps#add-custom-swa-application
+        // https://developer.okta.com/docs/reference/api/apps/#add-custom-swa-application
         app = await postJson({
             url: "/api/v1/apps",
             data: app
         });
         var appUser = {
             id: me.id,
-            scope: "USER",
+            scope: "USER"
         };
-        popup.html("Assigning app to user...");
-        // https://developer.okta.com/docs/api/resources/apps#assign-user-to-application-for-sso
+        popup.html("Assigning user to app...");
+        // https://developer.okta.com/docs/reference/api/apps/#assign-user-to-application-for-sso
         await postJson({
             url: "/api/v1/apps/" + app.id + "/users",
             data: appUser
