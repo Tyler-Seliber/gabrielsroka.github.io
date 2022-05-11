@@ -10,6 +10,6 @@
 // ==/UserScript==
 
 (function () {
-    document.body.appendChild(document.createElement("script")).src = "https://github.com/Tyler-Seliber/rockstar/blob/master/rockstar/rockstar.user.js";
+    document.body.appendChild(document.createElement("script")).src = "https://github.com/Tyler-Seliber/rockstar/raw/master/rockstar/rockstar.user.js";
 }
 )();
